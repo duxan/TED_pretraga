@@ -1,0 +1,57 @@
+<title>TED search DEMO</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<div class="container mr-auto ml-auto text-center">
+<h2 class="my-5">Pretraga TED.com na osnovu transkripata na srpskom</h2>
+
+<form action="" method="post" role="form" class="form-inline">
+    {{ form.csrf }}
+    <div class="form-group mx-auto my-auto text-center">
+        <div class="input-group mx-auto my-auto text-center">
+        <span class="input-group-addon mx-auto my-auto text-center">Model:</span>
+            <select name="model" class="selectpicker form-control">
+              <option value="cleaned">No stemming / no stop-words removal</option>
+              <option value="no_stemm-stop">Stop-words removal only</option>
+              <option value="stemm-no_stop">Stemming only</option>
+              <option value="stemm-stop">Stemming and stop-words removal</option>
+            </select>
+        </div>
+        <input type="text" class="form-control" id="keywords" name="keywords" placeholder="Ključne reči">
+        <button type="submit" class="btn btn-success">Pretraga</button>
+    </div>
+</form>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+
+        {% for message in messages %}
+            {% if "Error" not in message[1]: %}
+                
+                <div class="row mr-auto ml-auto text-center my-5">
+                {% for url in urls %} 
+                    <div class="col mx-1" style="position:relative;height:0;padding-bottom:56.25%">
+                        <iframe src="{{ url }}"
+                            style="position:absolute;left:0;top:0;width:100%;height:60%" 
+                            frameborder="0" scrolling="no" allowfullscreen>
+                        </iframe>
+                    </div>
+                {% endfor %}
+                </div>
+                <!-- 
+                <div class="alert alert-info">
+                    <strong>Success! </strong> {{ message[1] }}
+                </div>
+                -->
+            {% endif %}
+
+            {% if "Error" in message[1]: %}
+                <div class="alert alert-warning">
+                    {{ message[1] }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+   
+</div>
