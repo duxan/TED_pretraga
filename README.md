@@ -5,3 +5,6 @@
 1. Scraper - ted/ted - to scrape serbian transripts from TED talks
 2. Prepare dataset - TEDscrape.ipynb
 3. Search engine - Flask app
+
+![TED pretraga](TED pretraga.png)
+
